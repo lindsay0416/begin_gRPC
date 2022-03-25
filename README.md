@@ -1,2 +1,2 @@
-# My first gRPC practise with Golang
+# My first gRPC task with Golang
 Star gRPC in Galang
