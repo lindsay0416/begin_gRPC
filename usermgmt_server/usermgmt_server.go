@@ -65,9 +65,8 @@ func (s *UserManagementServer) CreateNewUser(ctx context.Context, in *pb.NewUser
 			}
 			return create_user, nil
 		} else {
-			log.Fatalln("Error reading file: %v ", err)
+			log.Fatalln("Error reading file: ", err)
 		}
-
 	}
 
 	if err = protojson.Unmarshal(readBytes, users_list); err != nil {
@@ -94,7 +93,7 @@ func (s *UserManagementServer) GetUsers(ctx context.Context, in *pb.GetUsersPara
 	}
 	var users_list *pb.UserList = &pb.UserList{}
 	if err := protojson.Unmarshal(jsonBytes, users_list); err != nil {
-		log.Fatalf("Unmarshaling failed: %v", err)
+		log.Fatalf("Unmarshal failed: %v", err)
 	}
 	return users_list, nil
 }
