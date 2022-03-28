@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"time"
 
@@ -31,7 +32,7 @@ func main() {
 	new_Users["Bob"] = 30
 
 	for name, age := range new_Users {
-		r, err := c.CreateNewUser(ctx, &pb.NewUser{Name: name, Age: age})
+		r, err := c.CreateNewUser(ctx, &pb.NewUser{Name: name, Age: int32(age)})
 		if err != nil {
 			log.Fatalf("Fail  create user: %v", err)
 		}
@@ -40,4 +41,12 @@ func main() {
 		AGE:%d
 		ID: %d`, r.GetName(), r.GetAge(), r.GetId())
 	}
+	params := &pb.GetUsersParams{}
+	r, err := c.GetUsers(ctx, params)
+	if err != nil {
+		log.Fatalf("Could not retrieve users: %v", err)
+	}
+	// print the user list we received from the server.
+	log.Print("\nUser List:\n")
+	fmt.Printf("r.GetUsers(): %v\n", r.GetUsers())
 }
